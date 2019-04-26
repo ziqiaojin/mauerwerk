@@ -109,7 +109,7 @@ export class Grid extends React.PureComponent {
 
   render() {
     let {
-      columns = 3,
+      columns = 2,
       margin = 0,
       occupySpace = true,
       lockScroll = false,
