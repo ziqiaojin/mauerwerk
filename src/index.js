@@ -8,9 +8,8 @@ const styles = {
   inner: {
     position: 'relative',
     width: '100%',
-    height: '100%',
+    height: '10%',
     overflow: 'hidden',
-    minHeight: '100%',
   },
   cell: {
     position: 'absolute',
@@ -186,7 +185,10 @@ export class Grid extends React.PureComponent {
                     update={this.update}
                     impl={impl}
                     config={config}
-                    children={(transitionMount || this.state.mounted) && displayData.map(this.cell)}
+                    children={
+                      (transitionMount || this.state.mounted) &&
+                      displayData.map(this.cell)
+                    }
                   />
                 </div>
               )}
