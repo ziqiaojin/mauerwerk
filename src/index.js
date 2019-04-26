@@ -8,8 +8,9 @@ const styles = {
   inner: {
     position: 'relative',
     width: '100%',
-    height: '10%',
+    height: '100%',
     overflow: 'hidden',
+    minHeight: '100%',
   },
   cell: {
     position: 'absolute',
