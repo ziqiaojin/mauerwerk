@@ -29,28 +29,26 @@ export class Grid extends React.PureComponent {
     lockScroll: PropTypes.bool,
     closeDelay: PropTypes.number,
     transitionMount: PropTypes.bool,
-    open: PropTypes.string,
   }
   state = {
-    mounted: false,
     width: 0,
     height: 0,
     heightOuter: 0,
     widthOuter: 0,
-    curOpen: null,
-    lastOpen: null,
+    open: undefined,
+    lastOpen: undefined,
   }
   scrollOut = e => {
     if (!this.props.lockScroll) {
-      this.state.curOpen && this.toggle(null)
+      this.state.open && this.toggle(undefined)
       this.clicked = false
     }
   }
   toggle = key =>
     this.setState(
       state => ({
-        lastOpen: state.curOpen,
-        curOpen: state.curOpen === key ? null : key,
+        lastOpen: state.open,
+        open: state.open === key ? undefined : key,
       }),
       () => (this.clicked = true)
     )
@@ -58,18 +56,17 @@ export class Grid extends React.PureComponent {
     this.setState({
       [width]: props.client.width,
       [height]: props.client.height,
-      mounted: width === 'width' || this.state.mounted,
     })
   resizeOuter = props => this.resize('widthOuter', 'heightOuter', props)
   resizeInner = props => this.resize('width', 'height', props)
   update = ({ key, x, y, width, height }) => {
-    const curOpen = this.state.curOpen === key
+    const open = this.state.open === key
     return {
       opacity: this.state.open && !open ? 0 : 1,
-      x: curOpen ? this.outerRef.scrollLeft : x,
-      y: curOpen ? this.outerRef.scrollTop : y,
-      width: curOpen ? this.state.width : width,
-      height: curOpen ? this.state.heightOuter : height,
+      x: open ? this.outerRef.scrollLeft : x,
+      y: open ? this.outerRef.scrollTop : y,
+      width: open ? this.state.width : width,
+      height: open ? this.state.heightOuter : height,
     }
   }
 
@@ -77,40 +74,36 @@ export class Grid extends React.PureComponent {
     this.clicked = false
   }
 
-  static getDerivedStateFromProps(props, state) {
-    if (props.open !== undefined && props.open !== state.curOpen) {
-      return { lastOpen: state.curOpen, curOpen: props.open }
-    } else return null
-  }
-
-  cell = ({ key, object }, i) => ({ opacity, x, y, width, height }) => {
-    const { lastOpen, curOpen } = this.state
-    const { open } = this.props
-    return (
-      <animated.div
-        style={{
-          ...styles.cell,
-          opacity,
-          width,
-          height,
-          zIndex: lastOpen === key || curOpen === key ? 1000 : i,
-          transform: interpolate(
-            [x, y],
-            (x, y) => `translate3d(${x}px,${y}px, 0)`
-          ),
-        }}
-        children={this.props.children(
-          object,
-          curOpen === key,
-          open !== undefined && (() => this.toggle(key))
-        )}
-      />
-    )
-  }
+  cell = ({ key, object }, i) => ({
+    lastOpen,
+    open,
+    opacity,
+    x,
+    y,
+    width,
+    height,
+  }) => (
+    <animated.div
+      style={{
+        ...styles.cell,
+        opacity,
+        width,
+        height,
+        zIndex: lastOpen === key || open === key ? 1000 : i,
+        transform: interpolate(
+          [x, y],
+          (x, y) => `translate3d(${x}px,${y}px, 0)`
+        ),
+      }}
+      children={this.props.children(object, open === key, () =>
+        this.toggle(key)
+      )}
+    />
+  )
 
   render() {
     let {
-      columns = 2,
+      columns = 3,
       margin = 0,
       occupySpace = true,
       lockScroll = false,
@@ -122,10 +115,9 @@ export class Grid extends React.PureComponent {
       data,
       keys,
       heights,
-      open,
       ...rest
     } = this.props
-    let { curOpen, height, width, widthOuter, heightOuter } = this.state
+    let { lastOpen, open, height, width, widthOuter, heightOuter } = this.state
     let column = 0
     let columnHeights = new Array(columns).fill(0)
 
@@ -151,7 +143,7 @@ export class Grid extends React.PureComponent {
         object: child,
       }
     })
-    const overflow = lockScroll ? (curOpen ? 'hidden' : 'auto') : 'auto'
+    const overflow = lockScroll ? (open ? 'hidden' : 'auto') : 'auto'
     const totalHeight = Math.max(...columnHeights) + margin
 
     return (
@@ -177,7 +169,7 @@ export class Grid extends React.PureComponent {
                   style={{ ...styles.inner, height: totalHeight }}>
                   <Transition
                     native
-                    delay={this.clicked && !curOpen ? closeDelay : 0}
+                    delay={this.clicked && !open ? closeDelay : 0}
                     items={displayData}
                     keys={d => d.key}
                     from={{ opacity: 0 }}
@@ -186,10 +178,9 @@ export class Grid extends React.PureComponent {
                     update={this.update}
                     impl={impl}
                     config={config}
-                    children={
-                      (transitionMount || this.state.mounted) &&
-                      displayData.map(this.cell)
-                    }
+                    lastOpen={lastOpen}
+                    open={open}
+                    children={displayData.map(this.cell)}
                   />
                 </div>
               )}
@@ -200,11 +191,6 @@ export class Grid extends React.PureComponent {
     )
   }
 }
-
-export default props =>
-  console.warn(
-    'The default export will be deprecated next version, import { Grid } from mauerwerk instead!'
-  ) || <Grid {...props} />
 
 const wrap = (child, styles) => {
   styles = { willChange: Object.keys(styles).join(','), ...styles }
