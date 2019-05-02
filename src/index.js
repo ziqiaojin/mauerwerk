@@ -88,7 +88,7 @@ export class Grid extends React.PureComponent {
         ...styles.cell,
         opacity,
         width,
-        height,
+        //height,
         zIndex: lastOpen === key || open === key ? 1000 : i,
         transform: interpolate(
           [x, y],
