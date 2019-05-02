@@ -4,7 +4,7 @@ import Measure from 'react-measure'
 import { Transition, Trail, animated, interpolate, config } from 'react-spring'
 
 const styles = {
-  outer: { position: 'relative', width: '10%', height: '10%' },
+  outer: { position: 'relative', width: '100%'},
   inner: {
     position: 'relative',
     width: '100%',
