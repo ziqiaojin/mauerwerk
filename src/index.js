@@ -1,6 +1,6 @@
-//import React from 'react'
-//import PropTypes from 'prop-types'
-//import Measure from 'react-measure'
+import React from 'react'
+import PropTypes from 'prop-types'
+import Measure from 'react-measure'
 import { Transition, Trail, animated, interpolate, config } from 'react-spring'
 
 const styles = {
