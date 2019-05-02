@@ -4,13 +4,13 @@
 import { Transition, Trail, animated, interpolate, config } from 'react-spring'
 
 const styles = {
-  outer: { position: 'relative', width: '100%', height: '100%' },
+  outer: { position: 'relative', width: '10%', height: '10%' },
   inner: {
     position: 'relative',
     width: '100%',
-    height: '10%',
+    height: '100%',
     overflow: 'hidden',
-    minHeight: '10%',
+    minHeight: '100%',
   },
   cell: {
     position: 'absolute',
