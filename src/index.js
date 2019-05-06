@@ -13,7 +13,6 @@ const styles = {
     minHeight: '100%',
   },
   cell: {
-    height: '10px',
     position: 'absolute',
     willChange: 'transform, width, opacity',
   },
@@ -26,7 +25,7 @@ export class Grid extends React.PureComponent {
     occupySpace: PropTypes.bool,
     columns: PropTypes.number,
     margin: PropTypes.number,
-    heights: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
+    //heights: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
     lockScroll: PropTypes.bool,
     closeDelay: PropTypes.number,
     transitionMount: PropTypes.bool,
