@@ -13,6 +13,7 @@ const styles = {
     minHeight: '100%',
   },
   cell: {
+    height: '10%',
     position: 'absolute',
     willChange: 'transform, width, height, opacity',
   },
