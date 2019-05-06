@@ -13,9 +13,9 @@ const styles = {
     minHeight: '100%',
   },
   cell: {
-    height: '10%',
+//    height: '10%',
     position: 'absolute',
-    willChange: 'transform, width, height, opacity',
+    willChange: 'transform, width, opacity',
   },
 }
 
@@ -82,19 +82,19 @@ export class Grid extends React.PureComponent {
     x,
     y,
     width,
-    height,
+//    height,
   }) => (
     <animated.div
       style={{
-       // ...styles.cell,
-        //opacity,
-       // width,
+        ...styles.cell,
+        opacity,
+        width,
         //height,
         zIndex: lastOpen === key || open === key ? 1000 : i,
-        //transform: interpolate(
-        //  [x, y],
-        //  (x, y) => `translate3d(${x}px,${y}px, 0)`
-       // ),
+        transform: interpolate(
+          [x, y],
+          (x, y) => `translate3d(${x}px,${y}px, 0)`
+        ),
       }}
       children={this.props.children(object, open === key, () =>
         this.toggle(key)
