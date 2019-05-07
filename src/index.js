@@ -25,7 +25,7 @@ export class Grid extends React.PureComponent {
     occupySpace: PropTypes.bool,
     columns: PropTypes.number,
     margin: PropTypes.number,
-    //heights: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
+    heights: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
     lockScroll: PropTypes.bool,
     closeDelay: PropTypes.number,
     transitionMount: PropTypes.bool,
@@ -81,14 +81,14 @@ export class Grid extends React.PureComponent {
     x,
     y,
     width,
-//    height,
+    height,
   }) => (
     <animated.div
       style={{
         ...styles.cell,
         opacity,
         width,
-        //height,
+        height,
         zIndex: lastOpen === key || open === key ? 1000 : i,
         transform: interpolate(
           [x, y],
@@ -138,7 +138,7 @@ export class Grid extends React.PureComponent {
         x: margin ? left + offset : left,
         y: top,
         width: cellWidth,
-        height: cellHeight,
+        height: cellWidth,
         key: keys(child, i),
         object: child,
       }
