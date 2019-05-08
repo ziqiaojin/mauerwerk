@@ -14,7 +14,7 @@ const styles = {
   },
   cell: {
     position: 'absolute',
-    willChange: 'transform, width, opacity',
+    willChange: 'transform, width, height, opacity',
   },
 }
 
@@ -87,7 +87,6 @@ export class Grid extends React.PureComponent {
       style={{
         ...styles.cell,
         opacity,
-        width,
         height,
         zIndex: lastOpen === key || open === key ? 1000 : i,
         transform: interpolate(
@@ -138,14 +137,14 @@ export class Grid extends React.PureComponent {
         x: margin ? left + offset : left,
         y: top,
         width: cellWidth,
-        height: cellWidth,
+        height: cellHeight,
         key: keys(child, i),
         object: child,
       }
     })
     const overflow = lockScroll ? (open ? 'hidden' : 'auto') : 'auto'
     const totalHeight = Math.max(...columnHeights) + margin
-
+    console.log(this.props.style)
     return (
       <Measure
         client
