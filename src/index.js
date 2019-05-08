@@ -72,6 +72,7 @@ export class Grid extends React.PureComponent {
 
   componentDidUpdate() {
     this.clicked = false
+    console.log(this.props)
   }
 
   cell = ({ key, object }, i) => ({
@@ -87,6 +88,7 @@ export class Grid extends React.PureComponent {
       style={{
         ...styles.cell,
         opacity,
+        width,
         height,
         zIndex: lastOpen === key || open === key ? 1000 : i,
         transform: interpolate(
@@ -119,7 +121,7 @@ export class Grid extends React.PureComponent {
     let { lastOpen, open, height, width, widthOuter, heightOuter } = this.state
     let column = 0
     let columnHeights = new Array(columns).fill(0)
-
+    console.log(this.props)
     let displayData = data.map((child, i) => {
       let index = occupySpace
         ? columnHeights.indexOf(Math.min(...columnHeights))
@@ -144,7 +146,6 @@ export class Grid extends React.PureComponent {
     })
     const overflow = lockScroll ? (open ? 'hidden' : 'auto') : 'auto'
     const totalHeight = Math.max(...columnHeights) + margin
-    console.log(this.props.style)
     return (
       <Measure
         client
