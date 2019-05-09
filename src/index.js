@@ -133,12 +133,12 @@ export class Grid extends React.PureComponent {
           ? heights(child)
           : heights || heightOuter - margin * 2
       columnHeights[index] += cellHeight + margin
-      console.log(cellHeight)
+      console.log(top)
       return {
         x: margin ? left + offset : left,
         y: top,
         width: cellWidth,
-        height: 50,
+        height: cellHeight,
         key: keys(child, i),
         object: child,
       }
