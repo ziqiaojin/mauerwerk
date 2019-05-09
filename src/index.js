@@ -138,7 +138,7 @@ export class Grid extends React.PureComponent {
         x: margin ? left + offset : left,
         y: top,
         width: cellWidth,
-        height: cellHeight,
+        height: 50,
         key: keys(child, i),
         object: child,
       }
