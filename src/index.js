@@ -120,7 +120,6 @@ export class Grid extends React.PureComponent {
     let { lastOpen, open, height, width, widthOuter, heightOuter } = this.state
     let column = 0
     let columnHeights = new Array(columns).fill(0)
-    console.log(columnHeights)
     let displayData = data.map((child, i) => {
       let index = occupySpace
         ? columnHeights.indexOf(Math.min(...columnHeights))
@@ -133,6 +132,7 @@ export class Grid extends React.PureComponent {
         typeof heights === 'function'
           ? heights(child) * cellWidth
           : heights || heightOuter - margin * 2
+      console.log("cellHeight")
       console.log(cellHeight)
       columnHeights[index] += cellHeight + margin
       return {
