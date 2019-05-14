@@ -118,9 +118,7 @@ export class Grid extends React.PureComponent {
       ...rest
     } = this.props
     let { lastOpen, open, height, width, widthOuter, heightOuter } = this.state
-    console.log(width)
-    console.log(widthOuter)
-    columns = round(width / 400 )
+    columns = Math.round(width / 400 )
     let column = 0
     let columnHeights = new Array(columns).fill(0)
     let displayData = data.map((child, i) => {
