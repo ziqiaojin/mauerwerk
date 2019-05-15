@@ -118,7 +118,7 @@ export class Grid extends React.PureComponent {
       ...rest
     } = this.props
     let { lastOpen, open, height, width, widthOuter, heightOuter } = this.state
-    columns = Math.round(width / 400 )
+    columns = Math.round(width / 250 )
     let column = 0
     let columnHeights = new Array(columns).fill(0)
     let displayData = data.map((child, i) => {
@@ -131,7 +131,7 @@ export class Grid extends React.PureComponent {
       let top = columnHeights[index] + margin
       let cellHeight =
         typeof heights === 'function'
-          ? heights(child) * cellWidth + 20
+          ? heights(child) * cellWidth + 10
           : heights || heightOuter - margin * 2
       console.log("cellHeight")
       console.log(cellHeight)
