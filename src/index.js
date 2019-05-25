@@ -124,7 +124,7 @@ export class Grid extends React.PureComponent {
       let index = occupySpace
         ? columnHeights.indexOf(Math.min(...columnHeights))
         : column++ % columns
-      let cellWidth = width / columns
+      let cellWidth = width / columns - margin / (1 - 1 / (columns + 1))
       let left = cellWidth * index
       let offset = (index + 1) * margin
       let top = columnHeights[index] + margin
