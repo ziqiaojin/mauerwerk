@@ -14,6 +14,7 @@ const styles = {
   },
   cell: {
     position: 'absolute',
+    overflow: 'visible',
     willChange: 'transform, width, height, opacity',
   },
 }
@@ -132,7 +133,8 @@ export class Grid extends React.PureComponent {
         typeof heights === 'function'
           ? heights(child) * cellWidth + 15 
           : heights || heightOuter - margin * 2
-      columnHeights[index] = cellHeight + margin
+      console.log(cellHeight)
+      columnHeights[index] += cellHeight + margin
       return {
         x: margin ? left + offset : left,
         y: top,
