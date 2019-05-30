@@ -9,7 +9,7 @@ const styles = {
     position: 'relative',
     width: '100%',
     height: '100%',
-    overflow: 'hidden',
+    overflow: 'auto',
     minHeight: '100%',
   },
   cell: {
@@ -130,7 +130,7 @@ export class Grid extends React.PureComponent {
       let top = columnHeights[index] + margin
       let cellHeight =
         typeof heights === 'function'
-          ? heights(child) * cellWidth + 10 
+          ? heights(child) * cellWidth + 15 
           : heights || heightOuter - margin * 2
       columnHeights[index] += cellHeight + margin
       return {
