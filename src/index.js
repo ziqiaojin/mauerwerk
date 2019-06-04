@@ -25,6 +25,7 @@ export class Grid extends React.PureComponent {
     occupySpace: PropTypes.bool,
     columns: PropTypes.number,
     margin: PropTypes.number,
+    labelHeight: PropTypes.number,
     heights: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
     lockScroll: PropTypes.bool,
     closeDelay: PropTypes.number,
@@ -115,6 +116,7 @@ export class Grid extends React.PureComponent {
       data,
       keys,
       heights,
+      labelHeight,
       ...rest
     } = this.props
     let { lastOpen, open, height, width, widthOuter, heightOuter } = this.state
@@ -134,7 +136,7 @@ export class Grid extends React.PureComponent {
           : heights || heightOuter - margin * 2
       console.log(cellWidth)
       console.log(cellHeight)
-      columnHeights[index] += cellHeight + margin
+      columnHeights[index] += cellHeight + margin + labelHeight
       return {
         x: margin ? left + offset : left,
         y: top,
