@@ -146,7 +146,7 @@ export class Grid extends React.PureComponent {
         object: child,
       }
     })
-    const overflow = lockScroll ? (open ? 'hidden' : 'auto') : 'auto'
+    const overflow = lockScroll ? (open ? 'visible' : 'auto') : 'auto'
     const totalHeight = Math.max(...columnHeights) + margin
     return (
       <Measure
