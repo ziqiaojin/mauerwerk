@@ -63,7 +63,8 @@ export class Grid extends React.PureComponent {
   update = ({ key, x, y, width, height }) => {
     const open = this.state.open === key
     return {
-      opacity: this.state.open && !open ? 0 : 1,
+//      opacity: this.state.open && !open ? 0 : 1,
+      opacity: 1,
       x: open ? this.outerRef.scrollLeft : x,
       y: open ? this.outerRef.scrollTop : y,
       width: open ? this.state.width : width,
